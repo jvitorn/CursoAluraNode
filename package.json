@@ -10,6 +10,7 @@
   "author": "aluno",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "marko": "4.13.4-1",
     "sqlite3": "^4.1.1"
