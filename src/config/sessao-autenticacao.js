@@ -29,4 +29,32 @@ module.exports=(app)=>{
                        .catch(error=> done(error,false));
         }
     ));
+    passport.serializeUser((usuario,done)=>{
+        //criando uma sessao de usuario
+        const usuarioSessao = {
+            nome:usuario.nome_completo,
+            email:usuario.email
+        };
+        done(null,usuarioSessao);
+    });
+    passport.deserializeUser((usuarioSessao,done)=>{
+        done(null,usuarioSessao);
+    });
+    //configurando sessao junto com o express 
+    app.use(sessao({
+        secret:'node alura',
+        genid:function (req) {
+            return uuid();
+        },
+        resave:false,
+        //evitando gerar uma sessao toda hora
+        saveUninitialized:false
+    }));
+    //inicializar o passport e a sessao
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(function(req,res,next){
+        req.passport = passport;
+        next();
+    });
 }
