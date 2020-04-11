@@ -6,6 +6,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const rotas = require('../app/routes/rotas.js');
+const sessaoAutenticacao = require('./sessao-autenticacao');
+
 
 app.use('/estatico',express.static('src/app/public'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -19,7 +21,7 @@ app.use(methodOverride(function (req, res) {
     }
   }));
 
-
+sessaoAutenticacao(app);
 rotas(app);
 //error 404 
 app.use((req,res,next)=>{

@@ -8,4 +8,8 @@ module.exports = (app) => {
     const rotasBase = BaseController.routes();
     //rotas da aplicação 
     app.get(rotasBase.home, baseController.home());
+
+    app.route(rotasBase.login)
+        .get(baseController.login())
+        .post(baseController.efetuaLogin());
 };
